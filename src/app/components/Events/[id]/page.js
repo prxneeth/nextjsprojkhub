@@ -1,9 +1,14 @@
 'use client'
 
 import Image from "next/image";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useParams } from "next/navigation";
-// import events from "../../eventsData";
-// import events from "../page";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+// import { useRouter } from 'next/router';
+
+
 
 export const events = [
     {
@@ -188,9 +193,28 @@ export const events = [
     }
 ];
 
+
 export default function EventDetailPage() {
+    const [images, setImages] = useState([]);
+    const [currentSlide, setCurrentSlide] = useState(0);
     const { id } = useParams();
     const event = events.find(event => event.id === id);
+    ;
+
+    useEffect(() => {
+        const res = fetch("https://picsum.photos/v2/list?page=1&limit=5")
+            .then((ress) => ress.json())
+            .then((data) => setImages(data));
+    }, [images]);
+
+    function handlePrevious() {
+        setCurrentSlide(currentSlide === 0 ? images.length - 1 : currentSlide - 1);
+    }
+
+    function handleNext() {
+        setCurrentSlide(currentSlide === images.length - 1 ? 0 : currentSlide + 1);
+    }
+
 
     if (!event) {
         return <p>Event not found!</p>;
@@ -198,14 +222,66 @@ export default function EventDetailPage() {
 
     return (
         <div className="bg-slate-300 min-h-screen p-6 flex flex-col items-center">
-            <h1 className="text-3xl font-bold mb-4">{event.title}</h1>
-            <Image
-                src={event.image}
-                alt="Event Image"
-                width={800}
-                height={500}
-                className="rounded-lg"
-            />
+            <div className="relative flex justify-center items-center w-full h-[550px]">
+                <p
+                    onClick={handlePrevious}
+                    className="absolute left-4 w-8 h-8 text-white text-3xl filter drop-shadow-md cursor-pointer"
+                >
+                    <i class="fa-regular fa-circle-left" />
+                </p>
+
+                {images && images.length
+                    ? images.map((imageItem, index) => (
+                        <img
+                            key={imageItem.id}
+                            alt={imageItem.download_url}
+                            src={imageItem.download_url}
+                            className={`rounded-md shadow-lg w-full h-full object-cover transition-opacity duration-500 ${currentSlide === index ? "opacity-100" : "hidden"
+                                }`}
+                        />
+                    ))
+                    : null}
+
+                <p
+                    onClick={handleNext}
+                    className="absolute right-4 w-8 h-8 text-white text-3xl filter drop-shadow-md cursor-pointer"
+                >
+
+                    <i class="fa-regular fa-circle-right" />
+                </p>
+
+                <div className="absolute bottom-4 flex space-x-1">
+                    {images && images.length
+                        ? images.map((_, index) => (
+                            <button
+                                key={index}
+                                className={`h-4 w-4 rounded-full outline-none cursor-pointer ${currentSlide === index ? "bg-white" : "bg-gray-500"
+                                    }`}
+                                onClick={() => setCurrentSlide(index)}
+                            ></button>
+                        ))
+                        : null}
+                </div>
+            </div>
+
+            <div className="w-5/6 bg-slate-50  p-4">     <div className="flex  ">
+                <div className="w-5/6"> <h1 className=" text-2xl font-semibold mb-1 ">{event.title} - {event.place} </h1>
+                    <p className=" font-light text-sm ">Pop, Romantic | Hindi, English | 5yrs + | 3hrs</p>
+                </div>
+                <Link key={event.id} href={`/components/Events/${event.id}/checkout`}>
+                    <div>
+                        <button className="border border-purple-800 w-32 h-12 hover:bg-gray-800 hover:text-white " >BOOK</button>
+                    </div>
+                </Link>
+
+            </div>
+                <hr className="bg-black mt-2 " />
+                <div className="mt-2 flex gap-5 font-light text-sm"><p>Fri 08 Nov 2024 6:00 PM</p>  <p> <i class="fa-solid fa-location-dot" />  {event.venue}</p>   <p>RS. {event.price} onwards</p> </div>
+
+            </div>
+
+
+
             <div className="mt-6 w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-700 text-lg">
                     <span className="font-semibold">Category:</span> {event.category}
