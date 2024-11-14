@@ -221,7 +221,7 @@ export default function EventDetailPage() {
     }
 
     return (
-        <div className="bg-slate-300 min-h-screen p-6 flex flex-col items-center">
+        <div className=" min-h-screen p-6 flex flex-col items-center">
             <div className="relative flex justify-center items-center w-full h-[550px]">
                 <p
                     onClick={handlePrevious}
@@ -264,7 +264,7 @@ export default function EventDetailPage() {
                 </div>
             </div>
 
-            <div className="w-5/6 bg-slate-50  p-4">     <div className="flex  ">
+            <div className="w-full bg-slate-50 border border-gray-700 m-1  p-4">     <div className="flex  ">
                 <div className="w-5/6"> <h1 className=" text-2xl font-semibold mb-1 ">{event.title} - {event.place} </h1>
                     <p className=" font-light text-sm ">Pop, Romantic | Hindi, English | 5yrs + | 3hrs</p>
                 </div>
@@ -282,7 +282,7 @@ export default function EventDetailPage() {
 
 
 
-            <div className="mt-6 w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg">
+            <div className="mt-6 w-full max-w-3xl  bg-slate-50 border border-gray-700 shadow-lg p-6">
                 <p className="text-gray-700 text-lg">
                     <span className="font-semibold">Category:</span> {event.category}
                 </p>

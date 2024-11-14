@@ -221,12 +221,12 @@ export default function Events() {
 
     return (
         <>
-            <div className="bg-slate-500 flex p-4">
-                <div className="w-1/4 bg-slate-400 p-5">
-                    <h1 className="text-lg font-bold mb-3">Filters</h1>
+            <div className="flex p-4">
+                <div className="w-1/4  p-5">
+                    <h1 className="text-2xl font-bold mb-3 p-4 ">Filters</h1>
 
-                    <div className="bg-blue-500 rounded-lg p-2 mb-4">
-                        <h2 className="font-semibold">Filter by Location</h2>
+                    <div className=" border border-gray-700 rounded-lg p-3 mb-4">
+                        <h2 className="font-semibold ml-1">Filter by Location</h2>
                         {[...new Set(events.map(event => event.place))].map((place, index) => (
                             <button
                                 key={index}
@@ -238,8 +238,8 @@ export default function Events() {
                         ))}
                     </div>
 
-                    <div className="bg-blue-500 rounded-lg p-2 mb-4">
-                        <h2 className="font-semibold">Filter by Category</h2>
+                    <div className=" border border-gray-700 rounded-lg p-3 mb-4">
+                        <h2 className="font-semibold ml-1">Filter by Category</h2>
                         {[...new Set(events.map(event => event.category))].map((cat, index) => (
                             <button
                                 key={index}
@@ -251,8 +251,8 @@ export default function Events() {
                         ))}
                     </div>
 
-                    <div className="bg-blue-500 rounded-lg p-2 mb-4">
-                        <h2 className="font-semibold">Filter by Price Range</h2>
+                    <div className=" border border-gray-700 rounded-lg p-3 mb-4">
+                        <h2 className="font-semibold ml-1">Filter by Price Range</h2>
                         <select
                             className="w-full border border-blue-200 p-1 mt-2 rounded"
                             value={priceRange}
@@ -274,13 +274,13 @@ export default function Events() {
                     </button>
                 </div>
 
-                <div className="w-3/4 bg-slate-300 p-5">
+                <div className="w-3/4  p-5">
                     <h1 className="text-center p-5 text-xl font-bold">EVENTS</h1>
                     <div className="grid grid-cols-3 gap-4">
                         {filtered.length > 0 ? (
                             filtered.map(event => (
                                 <Link key={event.id} href={`/components/Events/${event.id}`}>
-                                    <div className="m-1 border border-blue-100 w-64 h-80 p-1 cursor-pointer">
+                                    <div className="m-1 border border-gray-700 rounded-lg w-64 h-80 p-1 cursor-pointer">
                                         <Image
                                             src={event.image}
                                             alt="Event image"

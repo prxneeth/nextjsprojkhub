@@ -1,4 +1,4 @@
-// pages/Events/[id]/[checkout]/page.js
+
 'use client'
 
 import { useState, useEffect } from 'react';
@@ -33,7 +33,7 @@ export default function Checkout() {
 
     return (
         <div className="p-8 flex  justify-center">
-            <div className='bg-slate-100 p-5 rounded-lg items-left w-fit '> <h1 className="text-2xl font-bold text-center mb-4">Checkout</h1>
+            <div className='bg-slate-50 rounded-lg border border-gray-700 items-left w-fit p-10 '> <h1 className="text-2xl font-bold text-center mb-4">Checkout</h1>
                 <p className='mb-4'><strong>Event:</strong> {event.title}</p>
                 <p ><strong>Price per Ticket:</strong> ₹{event.price}</p>
                 <label className="block mt-4">
